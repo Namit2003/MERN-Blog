@@ -1,11 +1,18 @@
 const express = require('express')
 const cors = require('cors')
-const User = require('./models/user')
+const User = require('./models/User')
+const Post = require('./models/Post')
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
+const multer = require('multer')
+const path = require('path');
+const fs = require('fs')
 
+const uploadMiddleware = multer({
+    dest: path.join(__dirname, 'uploads'), // Use path.join to create an absolute path
+});
 const app = express()
 
 const salt = bcrypt.genSaltSync(10);
@@ -75,7 +82,23 @@ app.post('/logout', (req, res) => {
 })
 
 
+app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
+    const { originalname, path } = req.file;
+    const parts = originalname.split('. ');
+    const ext = parts[parts.length - 1];
+    const newPath = path + '.' + ext;
+    fs.renameSync(path, newPath);
 
+    const { title, summary, content } = req.body;
+    const postDoc = await Post.create({
+        title,
+        summary,
+        content,
+        cover: newPath,
+    })
+
+    res.json(postDoc)
+})
 
 
 
