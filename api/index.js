@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser')
 const app = express()
 
 const salt = bcrypt.genSaltSync(10);
-const secret = 'wqhdvgqwgf3f5623f2f2ft32652fh3ihqwebhk'
+const secret = 'f1a8d3e9c5b2a6b8c1f3e2a5f8e6a2f5b2d1f8e3b5d8c1f2e6a2f5b2d1f8e3'
 
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }))
 app.use(express.json())
@@ -37,7 +37,10 @@ app.post('/login', async (req, res) => {
     if (passOk) {
         jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
             if (err) throw err
-            res.cookie('token', token).json('ok')
+            res.cookie('token', token).json({
+                id: userDoc._id,
+                username,
+            })
         })
     } else {
         res.status(400).json('Wrong credentials')
@@ -51,6 +54,14 @@ app.get('/profile', (req, res) => {
         res.json(info)
     })
 })
+
+app.post('/logout', (req, res) => {
+    res.cookie('token', '').json('ok')
+})
+
+
+
+
 
 
 app.listen(4000)
