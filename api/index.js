@@ -31,21 +31,36 @@ app.post('/register', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    const userDoc = await User.findOne({ username });
-    const passOk = bcrypt.compareSync(password, userDoc.password)
-    if (passOk) {
-        jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
-            if (err) throw err
-            res.cookie('token', token).json({
-                id: userDoc._id,
-                username,
-            })
-        })
-    } else {
-        res.status(400).json('Wrong credentials')
+    try {
+        const { username, password } = req.body;
+        const userDoc = await User.findOne({ username });
+
+        if (!userDoc) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        const passOk = bcrypt.compareSync(password, userDoc.password);
+
+        if (passOk) {
+            jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Internal server error' });
+                }
+
+                res.cookie('token', token).json({
+                    id: userDoc._id,
+                    username,
+                });
+            });
+        } else {
+            res.status(400).json({ error: 'Wrong credentials' });
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-})
+});
+
 
 app.get('/profile', (req, res) => {
     const { token } = req.cookies
