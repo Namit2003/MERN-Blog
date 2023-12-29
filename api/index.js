@@ -10,9 +10,7 @@ const multer = require('multer')
 const path = require('path');
 const fs = require('fs')
 
-const uploadMiddleware = multer({
-    dest: path.join(__dirname, 'uploads'), // Use path.join to create an absolute path
-});
+const uploadMiddleware = multer({ dest: 'uploads/' });
 const app = express()
 
 const salt = bcrypt.genSaltSync(10);
@@ -21,6 +19,7 @@ const secret = 'f1a8d3e9c5b2a6b8c1f3e2a5f8e6a2f5b2d1f8e3b5d8c1f2e6a2f5b2d1f8e3'
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }))
 app.use(express.json())
 app.use(cookieParser())
+app.use('/uploads', express.static(__dirname + '/uploads'))
 
 mongoose.connect('mongodb+srv://Namit:Namit2003@cluster0.d5mnosr.mongodb.net/?retryWrites=true&w=majority')
 
@@ -89,17 +88,30 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
     const newPath = path + '.' + ext;
     fs.renameSync(path, newPath);
 
-    const { title, summary, content } = req.body;
-    const postDoc = await Post.create({
-        title,
-        summary,
-        content,
-        cover: newPath,
-    })
+    const { token } = req.cookies
+    jwt.verify(token, secret, {}, async (err, info) => {
+        if (err) throw err
 
-    res.json(postDoc)
+        const { title, summary, content } = req.body;
+        const postDoc = await Post.create({
+            title,
+            summary,
+            content,
+            cover: newPath,
+            author: info.id
+        })
+        res.json({ postDoc })
+    })
 })
 
+
+app.get('/post', async (req, res) => {
+    const posts = await Post.find()
+        .populate('author', ['username'])
+        .sort({ createdAt: -1 })
+        .limit(20)
+    res.json(posts)
+})
 
 
 app.listen(4000)

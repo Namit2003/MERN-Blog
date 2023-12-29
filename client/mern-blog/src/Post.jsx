@@ -1,19 +1,26 @@
-const Post = () => {
+import { format } from 'date-fns'
+import { Link } from 'react-router-dom';
+
+const Post = ({ title, summary, cover, content, createdAt, author }) => {
     return (
         <div className="post">
             <div className="image">
-                <img src="https://techcrunch.com/wp-content/uploads/2023/12/CMC_7587.jpg?w=850&h=492&crop=1" alt="" />
+                <Link to={'/post/id'}>
+                    <img src={'http://localhost:4000/' + cover} alt="" />
+                </Link>
             </div>
             <div className="texts">
-                <h2>Amazon's new Echo Frames can't touch the Ray-Ban Meta</h2>
+                <Link to={'/post/id'}>
+                    <h2>{title}</h2>
+                </Link>
                 <p className="info">
-                    <a className="author">Namit Patel</a>
-                    <time>25-12-2023 10:47</time>
+                    <a className="author">{author.username}</a>
+                    <time>{format(new Date(createdAt), 'do MMM yyyy, HH:mm')}</time>
                 </p>
-                <p className='summary'>This April marked the 10th anniversary since Google released the first generation of Glass.</p>
+                <p className='summary'>{summary}</p>
             </div>
         </div>
     )
-}    
+}
 
 export default Post;
