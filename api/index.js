@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config();
 const cors = require('cors')
 const User = require('./models/User')
 const Post = require('./models/Post')
@@ -21,7 +22,9 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
-mongoose.connect('mongodb+srv://Namit:Namit2003@cluster0.d5mnosr.mongodb.net/?retryWrites=true&w=majority')
+const mongo_uri = process.env["MONGO_URI"];
+
+mongoose.connect(mongo_uri);
 
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
