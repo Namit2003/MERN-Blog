@@ -34,6 +34,10 @@ header nav {
   gap: 15px;
 }
 
+a {
+  cursor: pointer;
+}
+
 div.post {
   display: grid;
   grid-template-columns: 1fr;
@@ -87,10 +91,10 @@ input {
   padding: 7px 7px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  /* background-color: #f9d1d1; */
 }
 
 button {
+  cursor: pointer;
   width: 100%;
   display: block;
   border: 0;
@@ -124,16 +128,36 @@ div.post-page h1 {
 
 div.post-page time {
   display: block;
-  text-align: right;
+  text-align: center;
   font-size: .8rem;
   color: aquamarine;
 }
 
 div.post-page div.author {
   display: block;
-  text-align: right;
+  text-align: center;
   font-size: 1rem;
   color: #ecf5a8;
   margin-bottom: 10px;
   font-weight: bold;
+}
+
+div.edit-row {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+div.post-page a.edit-btn {
+  background-color: #888;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+a svg {
+  height: 20px;
 }
