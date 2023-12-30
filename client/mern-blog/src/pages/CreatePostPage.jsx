@@ -9,6 +9,7 @@ const CreatePost = () => {
     const [content, setContent] = useState('')
     const [files, setFiles] = useState('')
     const [redirect, setRedirect] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('');
 
     const data = new FormData()
     data.set('title', title)
@@ -18,18 +19,27 @@ const CreatePost = () => {
 
     const createNewPost = async (event) => {
         event.preventDefault();
+
+        // Check if any of the fields is empty
+        if (!title || !summary || !content || !files[0]) {
+            setErrorMessage('Please fill in all the fields');
+            return;
+        }
+
         const response = await fetch("http://localhost:4000/post", {
             method: 'POST',
             body: data,
             credentials: 'include'
-        })
+        });
 
-        if (response.ok) setRedirect(true)
-
+        if (response.ok) {
+            setRedirect(true);
+        } else {
+            setErrorMessage('Error creating the post. Please try again.');
+        }
     }
 
     if (redirect) return <Navigate to={'/'} />
-
 
     return (
         <form onSubmit={createNewPost}>
@@ -38,6 +48,7 @@ const CreatePost = () => {
             <input type="file" onChange={event => setFiles(event.target.files)} />
             <Editor value={content} onChange={setContent} />
             <button style={{ marginTop: '7px' }}>POST</button>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
     )
 }
