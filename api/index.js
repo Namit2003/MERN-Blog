@@ -19,8 +19,8 @@ const secret = 'f1a8d3e9c5b2a6b8c1f3e2a5f8e6a2f5b2d1f8e3b5d8c1f2e6a2f5b2d1f8e3'
 // const frontend_url = process.env.FRONTEND || 'http://localhost:5173'
 const frontend_url = "https://extraordinary-zabaione-a7c392.netlify.app"
 
-// app.use(cors({ credentials: true, origin: frontend_url }))
-app.use(cors({ credentials: true, origin: '*' }));
+app.use(cors({ credentials: true, origin: frontend_url }))
+// app.use(cors({ credentials: true, origin: '*' }));
 
 app.use(express.json())
 app.use(cookieParser())
