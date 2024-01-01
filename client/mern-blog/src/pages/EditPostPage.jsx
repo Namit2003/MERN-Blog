@@ -6,6 +6,9 @@ import { useEffect } from "react";
 
 
 const EditPostPage = () => {
+
+    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+
     const { id } = useParams()
     const [title, setTitle] = useState('')
     const [summary, setSummary] = useState('')
@@ -14,7 +17,7 @@ const EditPostPage = () => {
     const [redirect, setRedirect] = useState(false)
 
     useEffect(() => {
-        fetch(`http://localhost:4000/post/${id}`)
+        fetch(`${backend_url}/post/${id}`)
             .then(response => {
                 response.json().then(postInfo => {
                     setTitle(postInfo.title)
@@ -34,7 +37,7 @@ const EditPostPage = () => {
         if (files?.[0])
             data.set('file', files?.[0])
 
-        const response = await fetch('http://localhost:4000/post', {
+        const response = await fetch(`${backend_url}/post`, {
             method: 'PUT',
             body: data,
             credentials: 'include'

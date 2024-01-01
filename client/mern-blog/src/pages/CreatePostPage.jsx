@@ -4,6 +4,9 @@ import { Navigate } from "react-router-dom";
 import Editor from "../Editor";
 
 const CreatePost = () => {
+
+    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+
     const [title, setTitle] = useState('')
     const [summary, setSummary] = useState('')
     const [content, setContent] = useState('')
@@ -26,7 +29,7 @@ const CreatePost = () => {
             return;
         }
 
-        const response = await fetch("http://localhost:4000/post", {
+        const response = await fetch(`${backend_url}/post`, {
             method: 'POST',
             body: data,
             credentials: 'include'

@@ -11,9 +11,10 @@ const LoginPage = () => {
 
     const login = async (event) => {
         event.preventDefault();
+        const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
 
         try {
-            const response = await fetch('http://localhost:4000/login', {
+            const response = await fetch(`${backend_url}/login`, {
                 method: 'POST',
                 body: JSON.stringify({ username, password }),
                 headers: { 'Content-Type': 'application/json' },

@@ -2,11 +2,13 @@ import { format } from 'date-fns'
 import { Link } from 'react-router-dom';
 
 const Post = ({ _id, title, summary, cover, content, createdAt, author }) => {
+    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+
     return (
         <div className="post">
             <div className="image">
                 <Link to={`/post/${_id}`}>
-                    <img src={'http://localhost:4000/' + cover} alt="" />
+                    <img src={`${backend_url}/` + cover} alt="" />
                 </Link>
             </div>
             <div className="texts">

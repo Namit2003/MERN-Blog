@@ -4,10 +4,12 @@ import { UserContext } from './UserContext';
 
 const Header = () => {
 
+    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+
     const { setUserInfo, userInfo } = useContext(UserContext)
 
     useEffect(() => {
-        fetch('http://localhost:4000/profile', {
+        fetch(`${backend_url}/profile`, {
             credentials: 'include',
         }).then(response => {
             response.json().then(userInfo => {
@@ -17,7 +19,7 @@ const Header = () => {
     }, [])
 
     const logout = () => {
-        fetch('http://localhost:4000/logout', {
+        fetch(`${backend_url}/logout`, {
             credentials: 'include',
             method: 'POST',
         })

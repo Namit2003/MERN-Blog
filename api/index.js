@@ -16,8 +16,9 @@ const app = express()
 
 const salt = bcrypt.genSaltSync(10);
 const secret = 'f1a8d3e9c5b2a6b8c1f3e2a5f8e6a2f5b2d1f8e3b5d8c1f2e6a2f5b2d1f8e3'
+const frontend_url = process.env["FRONTEND"] || 'http://localhost:5173'
 
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }))
+app.use(cors({ credentials: true, origin: frontend_url }))
 app.use(express.json())
 app.use(cookieParser())
 app.use('/uploads', express.static(__dirname + '/uploads'))

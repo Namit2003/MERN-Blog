@@ -7,9 +7,10 @@ const PostPage = () => {
     const { id } = useParams()
     const [postInfo, setPostInfo] = useState(null)
     const { userInfo } = useContext(UserContext)
+    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
 
     useEffect(() => {
-        fetch(`http://localhost:4000/post/${id}`)
+        fetch(`${backend_url}/post/${id}`)
             .then(response => {
                 response.json().then(postInfo => {
                     setPostInfo(postInfo)
@@ -34,7 +35,7 @@ const PostPage = () => {
                 </div>
             )}
             <div className="image">
-                <img src={`http://localhost:4000/${postInfo.cover}`} alt="" />
+                <img src={`${backend_url}/${postInfo.cover}`} alt="" />
             </div>
             <div dangerouslySetInnerHTML={{ __html: postInfo.content }} />
         </div>

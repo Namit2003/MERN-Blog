@@ -4,11 +4,12 @@ const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState(null);
+    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
 
     const register = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:4000/register', {
+            const response = await fetch(`${backend_url}/register`, {
                 method: 'POST',
                 body: JSON.stringify({ username, password }),
                 headers: { 'Content-Type': 'application/json' }
