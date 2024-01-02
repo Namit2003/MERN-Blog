@@ -5,8 +5,8 @@ import Editor from "../Editor";
 
 const CreatePost = () => {
 
-    const backend_url = 'http://localhost:4000'
-
+    const backend_url = process.env.BACKEND || 'http://localhost:4000'
+    
     const [title, setTitle] = useState('')
     const [summary, setSummary] = useState('')
     const [content, setContent] = useState('')

@@ -4,7 +4,7 @@ import { UserContext } from './UserContext';
 
 const Header = () => {
 
-    const backend_url = 'http://localhost:4000'
+    const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
     const { setUserInfo, userInfo } = useContext(UserContext)
 

@@ -15,7 +15,7 @@ const LoginPage = () => {
 
     const login = async (event) => {
         event.preventDefault();
-        const backend_url = 'http://localhost:4000'
+        const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
         try {
             const response = await fetch(`${backend_url}/login`, {

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 const EditPostPage = () => {
 
-    const backend_url = 'http://localhost:4000'
+    const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
     const { id } = useParams()
     const [title, setTitle] = useState('')

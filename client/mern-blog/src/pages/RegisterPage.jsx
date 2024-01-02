@@ -4,7 +4,7 @@ const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState(null);
-    const backend_url = 'http://localhost:4000'
+    const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
     const register = async (event) => {
         event.preventDefault();
