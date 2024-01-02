@@ -1,10 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from './UserContext';
+import { backend_url } from "../../config";
 
 const Header = () => {
-
-    const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
     const { setUserInfo, userInfo } = useContext(UserContext)
 

@@ -1,10 +1,7 @@
 import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
-
-
-
-
+import { backend_url } from "../../config";
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -15,7 +12,6 @@ const LoginPage = () => {
 
     const login = async (event) => {
         event.preventDefault();
-        const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
         try {
             const response = await fetch(`${backend_url}/login`, {

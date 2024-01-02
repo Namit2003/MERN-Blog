@@ -1,8 +1,8 @@
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom';
+import { backend_url } from "../../config";
 
 const Post = ({ _id, title, summary, cover, content, createdAt, author }) => {
-    const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
     return (
         <div className="post">

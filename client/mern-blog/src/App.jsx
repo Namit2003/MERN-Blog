@@ -8,11 +8,9 @@ import { UserContextProvider } from './UserContext';
 import CreatePostPage from './pages/CreatePostPage';
 import PostPage from './pages/PostPage';
 import EditPostPage from './pages/EditPostPage';
-import Cookies from 'js-cookie';
-
 
 function App() {
-  
+  console.log(import.meta.env.BACKEND)
   return (
     <UserContextProvider>
       <Routes>

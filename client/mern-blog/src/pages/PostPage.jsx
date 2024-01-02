@@ -2,12 +2,12 @@ import { format } from "date-fns";
 import { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import { backend_url } from "../../config";
 
 const PostPage = () => {
     const { id } = useParams()
     const [postInfo, setPostInfo] = useState(null)
     const { userInfo } = useContext(UserContext)
-    const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
     useEffect(() => {
         fetch(`${backend_url}/post/${id}`)

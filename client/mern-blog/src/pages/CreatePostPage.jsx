@@ -2,10 +2,9 @@ import { useState } from "react";
 import 'react-quill/dist/quill.snow.css'
 import { Navigate } from "react-router-dom";
 import Editor from "../Editor";
+import { backend_url } from "../../config";
 
 const CreatePost = () => {
-
-    const backend_url = process.env.BACKEND || 'http://localhost:4000'
     
     const [title, setTitle] = useState('')
     const [summary, setSummary] = useState('')

@@ -3,11 +3,9 @@ import 'react-quill/dist/quill.snow.css'
 import { Navigate, useParams } from "react-router-dom";
 import Editor from "../Editor";
 import { useEffect } from "react";
-
+import { backend_url } from "../../config";
 
 const EditPostPage = () => {
-
-    const backend_url = process.env.BACKEND || 'http://localhost:4000'
 
     const { id } = useParams()
     const [title, setTitle] = useState('')
