@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 const EditPostPage = () => {
 
-    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+    const backend_url = 'http://localhost:4000'
 
     const { id } = useParams()
     const [title, setTitle] = useState('')
@@ -15,6 +15,7 @@ const EditPostPage = () => {
     const [content, setContent] = useState('')
     const [files, setFiles] = useState('')
     const [redirect, setRedirect] = useState(false)
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         fetch(`${backend_url}/post/${id}`)
@@ -34,8 +35,10 @@ const EditPostPage = () => {
         data.set('summary', summary)
         data.set('content', content)
         data.set('id', id)
-        if (files?.[0])
+        if (files?.[0]) {
             data.set('file', files?.[0])
+        }
+        data.set('token', token)
 
         const response = await fetch(`${backend_url}/post`, {
             method: 'PUT',

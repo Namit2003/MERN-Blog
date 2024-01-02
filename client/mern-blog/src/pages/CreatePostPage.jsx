@@ -5,7 +5,7 @@ import Editor from "../Editor";
 
 const CreatePost = () => {
 
-    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+    const backend_url = 'http://localhost:4000'
 
     const [title, setTitle] = useState('')
     const [summary, setSummary] = useState('')
@@ -13,12 +13,14 @@ const CreatePost = () => {
     const [files, setFiles] = useState('')
     const [redirect, setRedirect] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
+    const token = localStorage.getItem('token');
 
     const data = new FormData()
     data.set('title', title)
     data.set('summary', summary)
     data.set('content', content)
     data.set('file', files[0])
+    data.set('token', token)
 
     const createNewPost = async (event) => {
         event.preventDefault();
@@ -28,7 +30,7 @@ const CreatePost = () => {
             setErrorMessage('Please fill in all the fields');
             return;
         }
-
+        
         const response = await fetch(`${backend_url}/post`, {
             method: 'POST',
             body: data,

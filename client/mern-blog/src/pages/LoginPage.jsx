@@ -2,6 +2,10 @@ import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
+
+
+
+
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -11,7 +15,7 @@ const LoginPage = () => {
 
     const login = async (event) => {
         event.preventDefault();
-        const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+        const backend_url = 'http://localhost:4000'
 
         try {
             const response = await fetch(`${backend_url}/login`, {
@@ -21,8 +25,10 @@ const LoginPage = () => {
                 credentials: 'include'
             });
 
+            
             if (response.ok) {
                 response.json().then(userInfo => {
+                    localStorage.setItem('token', userInfo.token);
                     setUserInfo(userInfo)
                     setRedirect(true);
                 })

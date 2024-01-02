@@ -4,7 +4,7 @@ import { UserContext } from './UserContext';
 
 const Header = () => {
 
-    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+    const backend_url = 'http://localhost:4000'
 
     const { setUserInfo, userInfo } = useContext(UserContext)
 
@@ -22,6 +22,12 @@ const Header = () => {
         fetch(`${backend_url}/logout`, {
             credentials: 'include',
             method: 'POST',
+        }).then(response => {
+            if (response.ok) {
+                localStorage.clear();
+            } else {
+                alert('Could not logout')
+            }
         })
         setUserInfo(null)
     }

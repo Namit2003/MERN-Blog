@@ -7,7 +7,7 @@ const PostPage = () => {
     const { id } = useParams()
     const [postInfo, setPostInfo] = useState(null)
     const { userInfo } = useContext(UserContext)
-    const backend_url = "https://myblog-57vg.onrender.com" || 'http://localhost:4000'
+    const backend_url = 'http://localhost:4000'
 
     useEffect(() => {
         fetch(`${backend_url}/post/${id}`)
