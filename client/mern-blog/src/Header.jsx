@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from './UserContext';
-import { backend_url } from "../../config";
+import { backend_url } from '../config';
 
 const Header = () => {
 
