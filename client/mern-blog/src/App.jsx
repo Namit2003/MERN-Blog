@@ -10,7 +10,6 @@ import PostPage from './pages/PostPage';
 import EditPostPage from './pages/EditPostPage';
 
 function App() {
-  console.log(import.meta.env.BACKEND)
   return (
     <UserContextProvider>
       <Routes>
